@@ -1,0 +1,68 @@
+/*
+ * updateamount.java
+ *
+ * Created on 10 July, 2009, 9:15 PM
+ */
+
+package admin2;
+
+import javax.servlet.http.*;
+import java.sql.*;
+import org.apache.struts.action.*;
+/**
+ *
+ * @author varun
+ * @version
+ */
+
+public class updateamount extends Action {
+    int flag=0;
+    public ActionForward execute(ActionMapping mapping, ActionForm  form,
+            HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
+      HttpSession session=request.getSession(false);
+     if(session.getAttribute("id")!=null)
+     {
+            updatebean ub=(updatebean)form;
+     //       HttpSession session=request.getSession(false);
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection c=DriverManager.getConnection("jdbc:mysql://localhost:3306/oew","root","mittal");
+            Statement st=c.createStatement();
+            String login_id=ub.getLogin_id();
+            String amount=ub.getAmount();
+            
+            if(login_id.equals("") || amount.equals(""))
+            {
+                session.setAttribute("ans2","Please enter in both fields");
+            }
+            else
+            {
+                String str4="select amount from user_account_detail where login_id='"+login_id+"'";
+            ResultSet rs=st.executeQuery(str4);
+            if(rs.next())
+            {
+                int amount2=rs.getInt("amount");
+                amount2=Integer.parseInt(amount)+amount2;
+                String str3="update user_account_detail set amount='"+amount2+"' where login_id='"+login_id+"'";
+                st.executeUpdate(str3);
+                flag=1;
+                if(flag==1)
+                    session.setAttribute("ans2","Updates are successfully saved");
+                else if(flag==0)
+                session.setAttribute("ans2","Due to some error the updates were not saved");
+            }
+            else
+            {
+            session.setAttribute("ans2","Please enter a valid id/password");
+            }
+            }
+            ub.setLogin_id(null);ub.setAmount(null);flag=0;
+        return mapping.getInputForward(); }
+        else
+        {
+        request.setAttribute("q","YOU HAVE LOGED OUT");
+        return mapping.findForward("errors");
+        }
+        
+    }
+}

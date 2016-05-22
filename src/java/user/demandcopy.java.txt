@@ -1,0 +1,38 @@
+/*
+ * demandcopy.java
+ *
+ * Created on 10 July, 2009, 10:05 PM
+ */
+
+package user;
+
+import javax.servlet.http.*;
+
+import org.apache.struts.action.*;
+/**
+ *
+ * @author rishabh
+ * @version
+ */
+
+public class demandcopy extends Action {
+    
+    public ActionForward execute(ActionMapping mapping, ActionForm  form,
+            HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
+    copychoice cc=(copychoice)form;
+    String str1=cc.getChoice();
+    if(str1==null)
+    {
+    request.setAttribute("q","please Enter some choice");
+    return mapping.getInputForward();
+    }
+    else
+    {
+      request.setAttribute("query","Select * from stock_master where name='ddlj'");
+    request.setAttribute("stock_id",cc.getChoice());
+    return mapping.getInputForward();
+    }    
+    
+    }
+}

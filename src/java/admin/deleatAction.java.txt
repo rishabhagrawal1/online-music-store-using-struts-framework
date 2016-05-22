@@ -1,0 +1,47 @@
+/*
+ * deleatAction.java
+ *
+ * Created on 9 July, 2009, 7:01 PM
+ */
+
+package admin;
+
+import javax.servlet.http.*;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts.action.Action;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionForward;
+/**
+ *
+ * @author AKHIL
+ * @version
+ */
+
+public class deleatAction extends Action {
+    
+    public ActionForward execute(ActionMapping mapping, ActionForm  form,
+            HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
+          HttpSession session=request.getSession(false);
+       if(session.getAttribute("id")!=null)
+        {
+        deleteBean bn=(deleteBean)form;
+        String query="delete from stock_master where stock_id='"+bn.getStock_id()+"'";
+         int ok=ConnectionService.update(query);
+         if(ok>0)
+         {
+         request.setAttribute("ds","deleted successfully");
+         }
+         else
+         request.setAttribute("ds"," not deleted successfully");    
+        return mapping.getInputForward(); }
+        else
+        {
+        request.setAttribute("q","YOU HAVE LOGED OUT");
+        return mapping.findForward("errors");
+        }
+        
+    }
+}

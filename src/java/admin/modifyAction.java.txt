@@ -1,0 +1,63 @@
+/*
+ * modifyAction.java
+ *
+ * Created on 9 July, 2009, 7:27 PM
+ */
+
+package admin;
+
+import javax.servlet.http.*;
+import javax.servlet.http.HttpServletResponse;
+import java.sql.*;
+import org.apache.struts.action.Action;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionForward;
+/**
+ *
+ * @author AKHIL
+ * @version
+ */
+
+public class modifyAction extends Action {
+    
+    public ActionForward execute(ActionMapping mapping, ActionForm  form,
+            HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
+         HttpSession session=request.getSession(false);
+        if(session.getAttribute("id")!=null)
+        {
+try{        modifybean bn=(modifybean)form;
+        String query="select* from stock_master where stock_id='"+bn.getStock_id1()+"'";
+        ResultSet rs=ConnectionService.select(query);
+        rs.next();
+        bn.setStock_id(rs.getString(1));
+        bn.setName(rs.getString(2));
+        bn.setDisk_type(rs.getString(3));
+        bn.setContent_type(rs.getString(4));
+        bn.setVersion_type(rs.getString(5));
+        bn.setImage(rs.getString(6));
+        bn.setCast(rs.getString(7));
+        bn.setDirector(rs.getString(8));
+        bn.setYear(rs.getString(9));
+       bn.setQuantity(rs.getString(10));
+       bn.setPrice(rs.getString(11));
+       
+}
+catch(Exception e)
+{
+    request.setAttribute("a","please fill the mandatory fields");
+        return mapping.getInputForward();
+}
+        
+        
+        return mapping.getInputForward();
+         }
+        else
+        {
+        request.setAttribute("q","YOU HAVE LOGED OUT");
+        return mapping.findForward("errors");
+        }
+        
+    }
+}

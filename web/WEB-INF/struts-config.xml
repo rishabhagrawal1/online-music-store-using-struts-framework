@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+
+<struts-config>
+    <form-beans>
+        <form-bean name="quitbean" type="admin.quitbean"/>
+        <form-bean name="copychoice" type="user.copychoice"/>
+        <form-bean name="searchbean" type="user.searchbean"/>
+        <form-bean name="changepassBean" type="user.changepassBean"/>
+        <form-bean name="signBean" type="user.signBean"/>
+        <form-bean name="validBean" type="user.validBean"/>
+      <form-bean name="updatebean1" type="user.updatebean"/>
+        <form-bean name="cancelbean" type="user.cancelbean"/>
+
+        <form-bean name="ServeBean" type="admin.ServeBean"/>
+        <form-bean name="checkBean" type="admin.checkBean"/>
+        <form-bean name="modifybean" type="admin.modifybean"/>
+        <form-bean name="deleteBean" type="admin.deleteBean"/>
+        <form-bean name="stockBean" type="admin.stockBean"/>
+                <form-bean name="updatebean" type="admin2.updatebean"/>
+        <form-bean name="checkbalancebean" type="admin2.checkbalancebean"/>
+        <form-bean name="checkaccountbalance" type="admin2.checkaccountbalance"/>
+        <form-bean name="viewbean" type="admin2.viewbean"/>
+        <form-bean name="useraccountbean" type="admin2.useraccountbean"/>
+
+    </form-beans>
+    
+    <global-exceptions>
+    
+    </global-exceptions>
+
+    <global-forwards>
+        <forward name="welcome"  path="/Welcome.do"/>
+    </global-forwards>
+
+    <action-mappings>
+        <action input="/index.jsp" name="validBean" path="/valid" scope="session" type="user.valid">
+        <forward path="/Admin.jsp" name="admin"></forward>
+        <forward path="main" name="user"></forward>
+        <forward path="/errors.jsp" name="errors"></forward>
+         </action>
+        <action input="/signup.jsp" name="signBean" path="/sA" scope="session" type="user.signupAction">
+        <forward path="/success.jsp" name="success"></forward>
+        </action>
+        <action path="/pu" type="user.profile_update">
+            <forward path="/edit_profile.jsp" name="edit_profile"></forward>
+        </action>
+        <action input="/search.jsp" name="searchbean" path="/sac" type="user.searchAction" scope="session">
+            <forward path="/show.jsp" name="show"></forward>
+            </action>
+            <action input="/show.jsp" name="copychoice" path="/order1" scope="session" type="user.order"/>
+            <action input="/show.jsp" name="copychoice" path="/demandcopy" scope="session" type="user.demandcopy"/>
+        <action input="/edit_profile.jsp" name="signBean" path="/ep" scope="session" type="user.edited_profile">
+             <forward path="/errors.jsp" name="errors"></forward>
+            </action>
+                <action path="/order" forward="/Myorder.jsp" />
+        <action path="/checkorder" forward="/Checkorderstatus.jsp" />
+        <action path="/updateorder" forward="/UpdateOrder.jsp" />
+        <action path="/cancelorder" forward="/Cancelorder.jsp" />
+        <action input="/Cancelorder.jsp" name="cancelbean" path="/cancelaction" type="user.Cancel" >
+            <forward path="/cancelled.jsp" name="cancelled"></forward>
+        </action>
+                 <action input="/UpdateOrder.jsp" path="/updateaction" name="updatebean1" type="user.Update">
+             <forward path="/up.jsp" name="up" ></forward>
+         </action>
+         <action input="/register.jsp" name="validBean" path="/registered" scope="session" type="user.registered"/>
+
+<action input="/quit.jsp" name="quitbean" path="/quit" type="admin.Quit" >
+        <forward name="quitted" path="/quitted.jsp" />
+        </action>
+        <action path="/index" forward="/index.jsp" />
+        <action path="/qu" forward="/quit.jsp" />
+            
+     <action input="/change_password.jsp" name="changepassBean" path="/cpa" scope="session" type="user.changepassAction"/>
+     <action path="/user" forward="main" />    
+     <action path="/signup" forward="/signup.jsp" />    
+    <action path="/change_password" forward="/change_password.jsp" />    
+     <action path="/search" forward="/search.jsp" />     
+<action path="/register" forward="/register.jsp" />
+<action path="/checkbalance" forward="/balance.jsp" />
+
+
+
+
+
+ <action input="/ServeOrder.jsp" name="ServeBean" path="/sa1" scope="session" type="admin.ServeAction"/>
+        <action input="/CheckPlace.jsp" name="checkBean" path="/co" scope="session" type="admin.CheckOrder">
+            <forward path="/errors.jsp" name="errors"/>
+        </action>
+        <action path="/so" type="SignOut">
+            <forward path="/errors.jsp" name="errors"/>
+            </action>
+        <action input="/modify.jsp" name="modifybean" path="/mas" scope="session" type="admin.OkModify">
+        <forward path="/errors.jsp" name="errors"/></action>
+        <action input="/modify.jsp" name="modifybean" path="/ma" scope="session" type="admin.modifyAction">
+            <forward path="/errors.jsp" name="errors"/></action>
+        <action input="/deleat.jsp" name="deleteBean" path="/da" scope="session" type="admin.deleatAction">
+            <forward path="/errors.jsp" name="errors"/></action>
+        <action input="/stock.jsp" name="stockBean" path="/sm" scope="session" type="admin.StockModify">
+        <forward path="/errors.jsp" name="errors"/>    </action>
+        <action input="/useraccount.jsp" 
+                name="useraccountbean" 
+                path="/ua" scope="session" 
+                type="admin2.useraccountaction">
+        
+        <forward name="view" path="/view.jsp"/>
+    <forward path="/errors.jsp" name="errors"/>
+    </action>
+        <action input="/viewamount.jsp" name="updatebean" path="/update" scope="session" type="admin2.updateamount">
+            <forward path="/errors.jsp" name="errors"/></action>
+        <action input="/checkbalance.jsp" name="checkbalancebean" path="/cb" scope="session" type="admin2.checkbalenceaction">
+            <forward name="amount" path="/viewamount.jsp" />
+            <forward path="/errors.jsp" name="errors"/>
+            </action>
+            
+        <action input="/view.jsp" name="viewbean" path="/va" scope="session" type="admin2.viewaction">
+        <forward path="/errors.jsp" name="errors"/></action>
+
+        <action path="/insert" forward="/stock.jsp"/>
+        <action path="/deleat" forward="/deleat.jsp"/>
+        <action path="/modifyStock" forward="/modify.jsp"/>
+          <action path="/checkOd" forward="/CheckOrder.jsp"/>
+        <action path="/serve" forward="/ServeOrder.jsp"/>
+          <action path="/StockModule" forward="/StockModule.jsp"/>
+        <action path="/CheckPlace" forward="/CheckPlace.jsp"/>
+           <action path="/ho" forward="/Admin.jsp"/>
+           <action path="/st" forward="/StockModule.jsp"/>
+           <action path="/ot" forward="/CheckPlace.jsp"/>
+           <action path="/cbs" forward="/checkbalance.jsp"/>
+           <action path="/uas" forward="/useraccount.jsp"/>
+
+</action-mappings>
+    
+    <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>
+
+    <message-resources parameter="com/myapp/struts/ApplicationResource"/>    
+    
+    <!-- ========================= Tiles plugin ===============================-->
+    <!--
+    This plugin initialize Tiles definition factory. This later can takes some
+    parameters explained here after. The plugin first read parameters from
+    web.xml, thenoverload them with parameters defined here. All parameters
+    are optional.
+    The plugin should be declared in each struts-config file.
+    - definitions-config: (optional)
+    Specify configuration file names. There can be several comma
+    separated file names (default: ?? )
+    - moduleAware: (optional - struts1.1)
+    Specify if the Tiles definition factory is module aware. If true
+    (default), there will be one factory for each Struts module.
+    If false, there will be one common factory for all module. In this
+    later case, it is still needed to declare one plugin per module.
+    The factory will be initialized with parameters found in the first
+    initialized plugin (generally the one associated with the default
+    module).
+    true : One factory per module. (default)
+    false : one single shared factory for all modules
+    - definitions-parser-validate: (optional)
+    Specify if xml parser should validate the Tiles configuration file.
+    true : validate. DTD should be specified in file header (default)
+    false : no validation
+
+    Paths found in Tiles definitions are relative to the main context.
+    -->
+    <plug-in className="org.apache.struts.tiles.TilesPlugin" >
+        <set-property property="definitions-config" value="/WEB-INF/tiles-defs.xml" />      
+        <set-property property="moduleAware" value="true" />
+    </plug-in>
+    
+    <!-- ========================= Validator plugin ================================= -->
+    <plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+        <set-property
+            property="pathnames"
+            value="/WEB-INF/validator-rules.xml,/WEB-INF/validation.xml"/>
+    </plug-in>
+  
+</struts-config>

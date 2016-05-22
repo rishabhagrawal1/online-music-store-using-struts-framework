@@ -1,0 +1,55 @@
+/*
+ * StockModify.java
+ *
+ * Created on 9 July, 2009, 5:59 PM
+ */
+
+package admin;
+
+import javax.servlet.http.*;
+import javax.servlet.http.HttpServletResponse;
+import java.util.*;
+import org.apache.struts.action.Action;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionForward;
+/**
+ *
+ * @author AKHIL
+ * @version
+ */
+
+public class StockModify extends Action {
+    
+    public ActionForward execute(ActionMapping mapping, ActionForm  form,
+            HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
+        HttpSession session=request.getSession(false);
+        if(session.getAttribute("id")!=null)
+        {
+try{
+        stockBean sb=(stockBean)form;
+        String query="insert into stock_master values('"+sb.getStock_id()+"','"+sb.getName()+"','"+sb.getDisk_type()+"','"+sb.getContent_type()+"','"+sb.getVersion_type()+"','"+sb.getImage()+"','"+sb.getCast()+"','"+sb.getDirector()+"','"+sb.getYear()+"','"+sb.getQuantity()+"','"+sb.getPrice()+"')";
+        int ok=ConnectionService.update(query);
+      
+        if(ok>0)
+            request.setAttribute("res","your query has been executed successfully");
+        else
+            request.setAttribute("res","your query has not been executed ");
+         return mapping.getInputForward(); 
+} catch(Exception e)
+         {
+             request.setAttribute("w","Please insert mandatory fields(Stock details)");
+             return mapping.getInputForward(); 
+         }
+         
+         
+         }
+        else
+        {
+        request.setAttribute("q","YOU HAVE LOGED OUT");
+        return mapping.findForward("errors");
+        }
+    
+}
+}

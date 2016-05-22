@@ -1,0 +1,49 @@
+/*
+ * edited_profile.java
+ *
+ * Created on 10 July, 2009, 2:29 AM
+ */
+
+package user;
+
+import javax.servlet.http.*;
+import java.sql.*;
+import org.apache.struts.action.*;
+import utility.ConnectionService;
+/**
+ *
+ * @author rishabh
+ * @version
+ */
+
+public class edited_profile extends Action {
+    
+    public ActionForward execute(ActionMapping mapping, ActionForm  form,
+            HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
+    HttpSession session=request.getSession(false);
+    if(session.getAttribute("id")!=null)
+        {
+ signBean sb=(signBean)form;
+        String query="update member_detail set login_id='"+sb.getLogin_id()+"',fname='"+sb.getFname()+"',mname='"+sb.getMname()+"',lname='"+sb.getLname()+"',contact_basic='"+sb.getContact_basic()+"',contact_mobile='"+sb.getContact_mobile()+"',email='"+sb.getEmail()+"',dob='"+sb.getDob()+"',street='"+sb.getStreet()+"',city='"+sb.getCity()+"',pincode='"+sb.getPincode()+"',state='"+sb.getState()+"',country='"+sb.getCountry()+"',occupation='"+sb.getOccupation()+"' where login_id='"+sb.getLogin_id()+"'";
+              int i=ConnectionService.update(query);
+              if(i==1)
+              {
+                  request.setAttribute("q","Your entries have succefully registered ");
+                 return mapping.findForward("errors");
+              }
+              else
+              {
+                          request.setAttribute("q","some error has occured during registration");
+                  return mapping.findForward("errors");
+              }
+    
+     
+ }
+ else
+        {
+            request.setAttribute("q","Please login to get this page");
+            return mapping.findForward("errors");
+        }
+    }
+}

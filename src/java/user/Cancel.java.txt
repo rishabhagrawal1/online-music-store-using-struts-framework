@@ -1,0 +1,30 @@
+/* Cancel*/
+
+package user;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts.action.Action;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionForward;
+import java.sql.*;
+import utility.ConnectionService;
+
+public class Cancel extends Action {
+    
+ 
+    public ActionForward execute(ActionMapping mapping, ActionForm  form,
+            HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
+        cancelbean cb=(cancelbean)form;
+        String orderid=cb.getOrderid();
+        String query="delete from order_master where order_id='"+orderid+"'";
+        int i=ConnectionService.update(query);
+        request.setAttribute("i",String.valueOf(i));
+        
+        return mapping.findForward("cancelled");
+        
+    }
+}

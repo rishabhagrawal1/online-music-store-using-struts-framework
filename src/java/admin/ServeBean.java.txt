@@ -1,0 +1,32 @@
+/*
+ * ServeBean.java
+ *
+ * Created on 10 July, 2009, 5:36 PM
+ */
+
+package admin;
+
+import javax.servlet.http.HttpServletRequest;
+import org.apache.struts.action.ActionErrors;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+
+/**
+ *
+ * @author AKHIL
+ * @version
+ */
+
+public class ServeBean extends org.apache.struts.action.ActionForm {
+    
+    private String[] select;
+
+    public String[] getSelect() {
+        return select;
+    }
+
+    public void setSelect(String[] select) {
+        this.select = select;
+    }
+    
+}

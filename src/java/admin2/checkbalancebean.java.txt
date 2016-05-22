@@ -1,0 +1,32 @@
+/*
+ * checkbalancebean.java
+ *
+ * Created on 10 July, 2009, 8:10 PM
+ */
+
+package admin2;
+
+import javax.servlet.http.HttpServletRequest;
+import org.apache.struts.action.ActionErrors;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+
+/**
+ *
+ * @author varun
+ * @version
+ */
+
+public class checkbalancebean extends org.apache.struts.action.ActionForm {
+    
+    private String check;
+
+    public String getCheck() {
+        return check;
+    }
+
+    public void setCheck(String check) {
+        this.check = check;
+    }
+    
+}

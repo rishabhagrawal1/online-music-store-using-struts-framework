@@ -1,0 +1,106 @@
+/*
+ * searchAction.java
+ *
+ * Created on 10 July, 2009, 11:21 AM
+ */
+
+package user;
+import java.sql.*;
+import javax.servlet.http.*;
+import org.apache.struts.action.*;
+import utility.ConnectionService;
+/**
+ *
+ * @author rishabh
+ * @version
+ */
+
+public class searchAction extends Action {
+    
+    public ActionForward execute(ActionMapping mapping, ActionForm  form,
+            HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
+    HttpSession session=request.getSession(false);
+    if(session.getAttribute("id")!=null)
+    {
+        searchbean sb=(searchbean)form;
+    String str1=sb.getType();
+    String str2=sb.getMatch();
+    String str3=sb.getNameType();
+    String str4=sb.getCastType();
+    String query=null;
+    if(str1==null)
+    {
+   request.setAttribute("r","Please Select Some Search Type");
+    return mapping.getInputForward(); 
+   
+    }
+    else if(str2.equals(""))
+    {
+   request.setAttribute("p","Please Enter YOUR Search In TEXT-FIELD");
+    return mapping.getInputForward(); 
+    }
+    else 
+    {
+        if(str1.equals("name"))
+        {
+            if(str3.equals("start_with"))
+            {
+    query="Select * from stock_master where "+str1+" like '"+str2+"%'";
+   session.setAttribute("query",query);
+    return mapping.findForward("show"); 
+    } 
+            else if(str3.equals("end_with"))
+            {
+                
+    query="Select * from stock_master where "+str1+" like '%"+str2+"'";
+   session.setAttribute("query",query);
+    return mapping.findForward("show"); 
+            }
+            else
+            {
+
+    query="Select * from stock_master where "+str1+" like '%"+str2+"%'";
+    session.setAttribute("query",query);
+    return mapping.findForward("show"); 
+            }
+        }
+        else if(str1.equals("year"))
+        {
+    query="Select * from stock_master where "+str1+" like '"+str2+"'";
+    session.setAttribute("query",query);
+    return mapping.findForward("show"); 
+        }
+       else if(str1.equals("director"))
+        {
+    query="Select * from stock_master where "+str1+" like '%"+str2+"%'";
+    session.setAttribute("query",query);
+    return mapping.findForward("show"); 
+       }
+    else 
+    {
+      if(str4.equals("equals"))
+            {
+    query="Select * from stock_master where "+str1+" like '"+str2+",%' or "+str1+" like '%,"+str2+"%,' or "+str1+" like '%,"+str2+"' or "+str1+" like '"+str2+"'";
+    session.setAttribute("query",query);
+    return mapping.findForward("show"); 
+    } 
+            else //(str3.equals("contains"))
+            {
+                
+    query="Select * from stock_master where "+str1+" like '%"+str2+"%'";
+    session.setAttribute("query",query);
+    return mapping.findForward("show"); 
+            }
+          }
+     
+    }
+    }    
+
+    else{
+   session.setAttribute("q","Please login to get this page");
+    return mapping.getInputForward(); 
+    }
+    //return mapping.getInputForward();     
+    }
+}

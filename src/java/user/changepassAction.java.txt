@@ -1,0 +1,58 @@
+/*
+ * changepassAction.java
+ *
+ * Created on 10 July, 2009, 12:25 AM
+ */
+
+package user;
+
+import javax.servlet.http.*;
+
+import org.apache.struts.action.*;
+import utility.ConnectionService;
+/**
+ *
+ * @author rishabh
+ * @version
+ */
+
+public class changepassAction extends Action {
+    
+    /* forward name="success" path="" */
+    public ActionForward execute(ActionMapping mapping, ActionForm  form,
+            HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
+        HttpSession session=request.getSession();
+        if(session.getAttribute("id")!=null)
+        {
+        changepassBean cpb=(changepassBean)form;
+        String str1=cpb.getOldPass();
+        String str2=cpb.getNewPass();
+        String str3=cpb.getConfirmPass();
+        if(str2.equals(str3))
+        {
+        String query="update login_master set password='"+str2+"' where login_id='"+session.getAttribute("id")+"' ";
+        int i=ConnectionService.update(query);
+        if(i==1)
+        {
+            request.setAttribute("q","your password have update successfuly");
+        return mapping.getInputForward();
+        }
+        else{   request.setAttribute("q","There is some problem to change your password");
+        return mapping.getInputForward();
+        }
+        }
+        else
+        {
+       
+        request.setAttribute("q","new password and confirmation password does not match");
+        return mapping.getInputForward();
+        }
+     }
+        else
+        {
+            request.setAttribute("q","Please login to get this page");
+            return mapping.getInputForward();
+        } 
+  }
+}

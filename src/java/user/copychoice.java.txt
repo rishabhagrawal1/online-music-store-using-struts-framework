@@ -1,0 +1,41 @@
+/*
+ * copychoice.java
+ *
+ * Created on 10 July, 2009, 10:02 PM
+ */
+
+package user;
+
+import javax.servlet.http.*;
+import org.apache.struts.action.*;
+/**
+ *
+ * @author rishabh
+ * @version
+ */
+
+public class copychoice extends org.apache.struts.action.ActionForm {
+    
+    private String choice;
+    
+    private String copies;
+
+    public String getChoice() {
+        return choice;
+    }
+
+    public void setChoice(String choice) {
+        this.choice = choice;
+    }
+
+    public String getCopies() {
+        return copies;
+    }
+
+    public void setCopies(String copies) {
+        this.copies = copies;
+    }
+    
+    
+
+}

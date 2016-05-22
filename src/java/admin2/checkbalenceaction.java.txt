@@ -1,0 +1,46 @@
+/*
+ * checkbalenceaction.java
+ *
+ * Created on 10 July, 2009, 8:13 PM
+ */
+
+package admin2;
+
+import javax.servlet.http.*;
+import org.apache.struts.action.*;
+/**
+ *
+ * @author varun
+ * @version
+ */
+
+public class checkbalenceaction extends Action {
+
+    public ActionForward execute(ActionMapping mapping, ActionForm  form,
+            HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
+          HttpSession session=request.getSession(false);
+        if(session.getAttribute("id")!=null)
+        {
+            checkbalancebean cb=(checkbalancebean)form;
+        //    HttpSession session=request.getSession(false);
+            String s1=cb.getCheck();
+            if(s1==null)
+            {
+                session.setAttribute("id","please select a choice");
+            }
+            else
+            {
+             String q1="select * from user_account_detail";
+             session.setAttribute("q1",q1);
+          
+            }
+        return mapping.findForward("amount");}
+        else
+        {
+        request.setAttribute("q","YOU HAVE LOGED OUT");
+        return mapping.findForward("errors");
+        }
+            
+    }
+}

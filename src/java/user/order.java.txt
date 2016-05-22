@@ -1,0 +1,73 @@
+/*
+ * order.java
+ *
+ * Created on 10 July, 2009, 10:17 PM
+ */
+
+package user;
+import java.sql.*;
+import javax.servlet.http.*;
+import java.util.Date;
+import org.apache.struts.action.*;
+import utility.ConnectionService;
+/**
+ *
+ * @author rishabh
+ * @version
+ */
+
+public class order extends Action {
+    
+    public ActionForward execute(ActionMapping mapping, ActionForm  form,
+            HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
+ copychoice cc=(copychoice)form;
+ HttpSession session=request.getSession(false);
+ if(session.getAttribute("id")!=null)
+ {
+  Date d=new Date();
+  String t = d.toString().split(" ")[2];
+ 
+  if(cc.getCopies().equals("")||cc==null)
+    {
+        request.setAttribute("q","please Enter copies");
+    return mapping.getInputForward();
+    }
+    else
+    {String str1=(String)session.getAttribute("id");
+     String query1="select quantity from stock_master where stock_id ='"+cc.getChoice()+"'"; 
+              ResultSet rs=ConnectionService.select(query1);
+              rs.next();
+     if(rs.getInt("quantity") < Integer.parseInt(cc.getCopies()))
+     {
+                          request.setAttribute("q","WE have less copies then your Demand please select some less copies");
+                  return mapping.getInputForward();
+           
+     }
+     else{        
+         String query="insert into order_master (login_id,stock_id,order_date,quantity,status) values('"+str1
+                 +"','"+cc.getChoice()+"','"+t+"',"+Integer.parseInt(cc.getCopies())+",'pending')";
+              int i=ConnectionService.update(query);
+              cc.setCopies(null);
+              if(i==1)
+              {
+                  request.setAttribute("q","Your order have succefully registered we will confirm your order soon");
+                 return mapping.getInputForward();
+              }
+              else
+              {
+                          request.setAttribute("q","some error has occured in registering your order");
+                  return mapping.getInputForward();
+              }
+  
+    
+    }            
+    }
+ }      
+ else
+ {
+ request.setAttribute("q","please login to get this page");
+ return mapping.findForward("errors");
+ }
+    }
+}

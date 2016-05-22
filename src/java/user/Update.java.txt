@@ -1,0 +1,64 @@
+
+
+import javax.servlet.http.*;
+import org.apache.struts.action.*;
+import java.sql.*;
+import user.updatebean1;
+import utility.ConnectionService;
+
+public class Update extends Action {
+    ResultSet rs;
+   
+    public ActionForward execute(ActionMapping mapping, ActionForm  form,
+            HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
+        int flag=0;
+        updatebean1 up=(updatebean1)form;
+        String orderid=up.getOrderid();
+        String quantity=up.getQuantity();
+      String query4="select order_id from order_master";
+      rs=ConnectionService.select(query4);
+      while(rs.next())
+      {
+          if(rs.getString(1).equals(orderid)){flag=1;}
+      }
+        if(orderid.equals("") || flag==0)
+        {
+            request.setAttribute("er","Please give orderid");
+            return mapping.getInputForward();
+        }
+        
+        else if(quantity.equals("") || Integer.parseInt(quantity)<1)
+        {
+            request.setAttribute("er","Please give correct quantity");
+             return mapping.getInputForward();
+        }
+        else
+        {   
+            int quan=Integer.parseInt(quantity);
+            String query3="select stock_id from order_master where order_id='"+orderid+"'";
+               rs=ConnectionService.select(query3);
+               rs.next();
+               String stockid=rs.getString("stock_id");
+             String query1="select quantity from stock_master where stock_id='"+stockid+"'";
+             rs=ConnectionService.select(query1);
+             rs.next();
+             int q=(Integer.parseInt(rs.getString("quantity")));
+             if(q<quan)
+             {
+                   request.setAttribute("er","Sorry only '"+q+"' copies stock is available");
+                    return mapping.getInputForward();
+                   
+             }
+             else{
+                 String query2="update order_master set quantity='"+quan+"' where order_id='"+orderid+"'";
+                 int j=ConnectionService.update(query2);
+                return mapping.findForward("up");
+             }
+             }
+             
+        
+       
+        
+    }
+}

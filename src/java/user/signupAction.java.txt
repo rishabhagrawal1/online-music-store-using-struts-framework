@@ -1,0 +1,48 @@
+/*
+ * signupAction.java
+ *
+ * Created on 9 July, 2009, 9:53 PM
+ */
+
+package user;
+
+import javax.servlet.http.*;
+import org.apache.struts.action.*;
+import utility.ConnectionService;
+/**
+ *
+ * @author rishabh
+ * @version
+ */
+
+public class signupAction extends Action {
+    
+    public ActionForward execute(ActionMapping mapping, ActionForm  form,
+            HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
+        HttpSession session=request.getSession();
+        if(session.getAttribute("id")!=null)
+        {
+signBean sb=(signBean)form;
+        String query="insert into member_detail values('"+(String)session.getAttribute("id")+"','"+sb.getFname()+"','"+sb.getMname()+"','"+sb.getLname()+"','"+sb.getContact_basic()+"','"+sb.getContact_mobile()+"','"+sb.getEmail()+"','"+sb.getDob()+"','"+sb.getStreet()+"','"+sb.getCity()+"','"+sb.getPincode()+"','"+sb.getState()+"','"+sb.getCountry()+"','"+sb.getOccupation()+"')";
+              int i=ConnectionService.update(query);
+              if(i==1)
+              {
+                  request.setAttribute("q","Your entries have succefully registered ");
+                 return mapping.getInputForward();
+              }
+              else
+              {
+                          request.setAttribute("q","some error has occured during registration");
+                  return mapping.getInputForward();
+              }
+    }
+        else
+        {
+                  request.setAttribute("q","Please login to get this page");
+          return mapping.getInputForward();
+        }
+    
+    
+    }
+}

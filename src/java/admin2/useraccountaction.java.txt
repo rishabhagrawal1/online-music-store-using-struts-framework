@@ -1,0 +1,61 @@
+/*
+ * useraccountaction.java
+ *
+ * Created on 10 July, 2009, 11:09 AM
+ */
+
+package admin2;
+
+import javax.servlet.http.*;
+import java.sql.*;
+import java.io.*;
+import org.apache.struts.action.Action;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionForward;
+/**
+ *
+ * @author varun
+ * @version
+ */
+
+public class useraccountaction extends Action {
+    
+    public ActionForward execute(ActionMapping mapping, ActionForm  form,
+            HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
+          HttpSession session=request.getSession(false);
+        if(session.getAttribute("id")!=null)
+        {
+            useraccountbean ua=(useraccountbean)form;
+            String s1=ua.getUseraccount();
+            
+        //    HttpSession session=request.getSession();
+            session.setAttribute("choice",s1);
+            
+            if(s1.equals("activateuser"))
+            {
+                String query="select * from login_master where role='user' and status='deactivated' or status='pending'";
+                session.setAttribute("query",query);
+            }
+            else if(s1.equals("deactivateuser"))
+            {
+                String query="select * from login_master where role='user' and status='activated'";
+                session.setAttribute("query",query);
+            }
+            else if(s1.equals("deleteuser"))
+            {
+                String query="select * from login_master where role='user'";
+                session.setAttribute("query",query);
+            }
+          
+    return mapping.findForward("view"); }
+        else
+        {
+        request.setAttribute("q","YOU HAVE LOGED OUT");
+        return mapping.findForward("errors");
+        }
+       
+        
+    }
+}

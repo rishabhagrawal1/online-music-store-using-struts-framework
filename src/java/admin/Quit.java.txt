@@ -1,0 +1,48 @@
+/*
+ * Quit.java
+ *
+ * Created on July 11, 2009, 10:56 AM
+ */
+
+package admin;
+
+import javax.servlet.http.*;
+
+import org.apache.struts.action.Action;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionForward;
+import java.sql.*;
+import utility.ConnectionService;
+/**
+ *
+ * @author Ankur
+ * @version
+ */
+
+public class Quit extends Action {
+    
+ 
+    public ActionForward execute(ActionMapping mapping, ActionForm  form,
+            HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
+        HttpSession session=request.getSession(false);
+        String id=(String)session.getAttribute("id");
+        quitbean qb=(quitbean)form;
+        String str=qb.getLogin_id();
+        if(!id.equals(str))
+        {
+            request.setAttribute("err","You entered wrong id");
+           return mapping.getInputForward();
+        }
+        else
+        {
+            String query="update login_master set password='admin', status='quit' where login_id='"+id+"'";
+            int i=ConnectionService.update(query);
+            session.invalidate();
+            return mapping.findForward("quitted");
+        }
+       
+        
+    }
+}

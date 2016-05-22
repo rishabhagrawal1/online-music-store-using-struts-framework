@@ -1,0 +1,121 @@
+/*
+ * stockBean.java
+ *
+ * Created on 9 July, 2009, 5:45 PM
+ */
+
+package admin;
+
+import javax.servlet.http.*;
+import org.apache.struts.action.*;
+/**
+ *
+ * @author AKHIL
+ * @version
+ */
+
+public class stockBean extends org.apache.struts.action.ActionForm {
+    
+    private String stock_id;
+    
+    private String name;
+    private String disk_type;
+    private String content_type;
+    private String version_type;
+    private String image;
+    private String cast;
+    private String director;
+    private String year;
+    private String quantity;
+    private String price;
+
+    public String getStock_id() {
+        return stock_id;
+    }
+
+    public void setStock_id(String stock_id) {
+        this.stock_id = stock_id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDisk_type() {
+        return disk_type;
+    }
+
+    public void setDisk_type(String disk_type) {
+        this.disk_type = disk_type;
+    }
+
+    public String getContent_type() {
+        return content_type;
+    }
+
+    public void setContent_type(String content_type) {
+        this.content_type = content_type;
+    }
+
+    public String getVersion_type() {
+        return version_type;
+    }
+
+    public void setVersion_type(String version_type) {
+        this.version_type = version_type;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getCast() {
+        return cast;
+    }
+
+    public void setCast(String cast) {
+        this.cast = cast;
+    }
+
+    public String getDirector() {
+        return director;
+    }
+
+    public void setDirector(String director) {
+        this.director = director;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
+    }
+
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+    
+  
+}

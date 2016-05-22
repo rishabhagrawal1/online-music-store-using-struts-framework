@@ -1,0 +1,41 @@
+/*
+ * useraccountbean.java
+ *
+ * Created on 10 July, 2009, 11:06 AM
+ */
+
+package admin2;
+
+import javax.servlet.http.HttpServletRequest;
+import org.apache.struts.action.ActionErrors;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+
+/**
+ *
+ * @author varun
+ * @version
+ */
+
+public class useraccountbean extends org.apache.struts.action.ActionForm {
+    
+    private String useraccount;
+//   private String ch;
+    public String getUseraccount() {
+        return useraccount;
+    }
+
+    public void setUseraccount(String useraccount) {
+        this.useraccount = useraccount;
+    }
+/*
+    public String getCh() {
+        return ch;
+    }
+
+    public void setCh(String ch) {
+        this.ch = ch;
+    }
+
+  */ 
+}

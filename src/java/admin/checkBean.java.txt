@@ -1,0 +1,32 @@
+/*
+ * checkBean.java
+ *
+ * Created on 10 July, 2009, 2:24 PM
+ */
+
+package admin;
+
+import javax.servlet.http.HttpServletRequest;
+import org.apache.struts.action.ActionErrors;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+
+/**
+ *
+ * @author AKHIL
+ * @version
+ */
+
+public class checkBean extends org.apache.struts.action.ActionForm {
+    
+   private String choice;
+
+    public String getChoice() {
+        return choice;
+    }
+
+    public void setChoice(String choice) {
+        this.choice = choice;
+    }
+   
+}

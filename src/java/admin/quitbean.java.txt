@@ -1,0 +1,35 @@
+/*
+ * quitbean.java
+ *
+ * Created on July 11, 2009, 10:54 AM
+ */
+
+package admin;
+
+import javax.servlet.http.HttpServletRequest;
+import org.apache.struts.action.ActionErrors;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+
+/**
+ *
+ * @author Ankur
+ * @version
+ */
+
+public class quitbean extends org.apache.struts.action.ActionForm {
+    
+    private String login_id;
+
+    public String getLogin_id() {
+        return login_id;
+    }
+
+    public void setLogin_id(String login_id) {
+        this.login_id = login_id;
+    }
+    
+   
+    
+  
+}

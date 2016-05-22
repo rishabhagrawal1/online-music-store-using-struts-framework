@@ -1,0 +1,56 @@
+/*
+ * valid.java
+ *
+ * Created on 9 July, 2009, 4:44 PM
+ */
+
+package user;
+
+import java.sql.*;
+import javax.servlet.http.*;
+import org.apache.struts.action.*;
+import utility.ConnectionService;
+/**
+ *
+ * @author rishabh
+ * @version
+ */
+
+public class valid extends Action {
+    
+    public ActionForward execute(ActionMapping mapping, ActionForm  form,
+            HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
+        validBean vb=(validBean)form;
+        String id=vb.getId();
+        String password=vb.getPassword();
+          String str=id+password;
+         HttpSession session=request.getSession();
+         session.setAttribute("str",str);
+        String query="select * from login_master where login_id='"+id+"' and password='"+password+"'" ;
+        ResultSet rs=ConnectionService.select(query);
+        
+        if(rs.next())
+        {
+       session.setAttribute("id",id);
+            if(rs.getString(3).equals("admin"))
+           
+            return mapping.findForward("admin");
+        else
+        {if(rs.getString("status").equals("activated"))
+            return mapping.findForward("user");
+            else
+            { 
+       request.setAttribute("q","YOUR STATUS IS "+rs.getString(4)+" PLEASE CONTACT YOUR NEAREST OEW CENTER TO ACTIVATE YOUR ACCOUNT");
+          return mapping.findForward("errors");
+            }
+        }     
+       
+        }
+        else{
+            request.setAttribute("q","YOY HAVE NOT MAKE YOUR ENTRY IN OUR COMPANY PLEASE REGISTER FIRST");
+        return mapping.findForward("errors");  
+        }
+          
+    }
+}

@@ -1,0 +1,49 @@
+/*
+ * OkModify.java
+ *
+ * Created on 10 July, 2009, 11:11 AM
+ */
+
+package admin;
+
+import javax.servlet.http.*;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts.action.Action;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionForward;
+/**
+ *
+ * @author AKHIL
+ * @version
+ */
+
+public class OkModify extends Action {
+    
+    
+   
+    public ActionForward execute(ActionMapping mapping, ActionForm  form,
+            HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
+ HttpSession session=request.getSession(false);
+        if(session.getAttribute("id")!=null)
+        {
+        modifybean bn=(modifybean)form;
+        String query="update stock_master set stock_id='"+bn.getStock_id()+"',name='"+bn.getName()+"',disk_type='"+bn.getDisk_type()+"',content_type='"+bn.getContent_type()+"',version_type='"+bn.getVersion_type()+"',image='"+bn.getImage()+"',cast='"+bn.getCast()+"',director='"+bn.getDirector()+"',year='"+bn.getYear()+"',quantity='"+bn.getQuantity()+"',price='"+bn.getPrice()+"' where stock_id='"+bn.getStock_id1()+"'"; 
+          int ok=ConnectionService.update(query);
+      
+        if(ok>0)
+            request.setAttribute("res","your query has been executed successfully");
+        else
+            request.setAttribute("res","your query has not been executed ");
+         return mapping.getInputForward();}
+        else
+        {
+        request.setAttribute("q","YOU HAVE LOGED OUT");
+        return mapping.findForward("errors");
+        }
+       
+        
+    }
+}

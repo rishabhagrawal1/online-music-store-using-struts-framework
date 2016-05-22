@@ -1,0 +1,90 @@
+/*
+ * ServeAction.java
+ *
+ * Created on 10 July, 2009, 5:39 PM
+ */
+
+package admin;
+
+
+import java.util.ArrayList;
+import javax.servlet.http.*;
+import javax.servlet.http.HttpServletResponse;
+import java.sql.*;
+import org.apache.struts.action.Action;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionForward;
+/**
+ *
+ * @author AKHIL
+ * @version
+ */
+
+public class ServeAction extends Action {
+    
+  
+    public ActionForward execute(ActionMapping mapping, ActionForm  form,
+            HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
+   HttpSession session=request.getSession(false);
+        if(session.getAttribute("id")!=null)
+        {
+          ServeBean sb=(ServeBean)form;
+         //  request.setAttribute("res1",sb.getSelect());
+           //request.setAttribute("res2",String.valueOf(sb.getSelect().length));
+          //String str1=sb.getSelect();  
+          if(sb.getSelect()==null)
+           {
+            request.setAttribute("res","PLease select items for delivery ");
+           return mapping.getInputForward();
+           }
+           
+         
+          int ok=0;
+          ArrayList al=new ArrayList();
+          int check=0;
+          for(int i=0;i<sb.getSelect().length;i++)
+          {   String query="update order_master set status='delever' where order_id='"+sb.getSelect()[i]+"'";
+         ok=ConnectionService.update(query);
+         String query1="select stock_id, quantity from order_master  where order_id='"+sb.getSelect()[i]+"'";
+        ResultSet rs=ConnectionService.select(query1);
+        rs.next();
+        String stock_id=rs.getString("stock_id");
+       int quan=rs.getInt("quantity");
+         String query2="select quantity from stock_master  where stock_id='"+rs.getString("stock_id")+"'";  
+       ResultSet rs1=ConnectionService.select(query2);
+       rs1.next();
+       int quan1=Integer.parseInt(rs1.getString("quantity"));
+       int total=quan1-quan;
+       String query3="update stock_master set quantity="+total+" where stock_id='"+stock_id+"'";
+        int ok2=ConnectionService.update(query3);
+        if(ok==0||ok2==0)
+        {
+          check=1;
+          al.add(sb.getSelect()[i]);
+        }
+     
+          }
+      
+        if(check==0)
+            request.setAttribute("res","all selected order has been delievered successfully");
+        else
+            request.setAttribute("res","order \"${al}\" have not been delievered "); 
+        
+          
+          
+        
+           sb.setSelect(null);
+           
+          return mapping.getInputForward();}
+        else
+        {
+        request.setAttribute("q","YOU HAVE LOGED OUT");
+        return mapping.findForward("errors");
+        }
+           
+              
+        
+    }
+}

@@ -1,0 +1,41 @@
+/*
+ * updatebean.java
+ *
+ * Created on 10 July, 2009, 9:16 PM
+ */
+
+package admin2;
+
+import javax.servlet.http.HttpServletRequest;
+import org.apache.struts.action.ActionErrors;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+
+/**
+ *
+ * @author varun
+ * @version
+ */
+
+public class updatebean extends org.apache.struts.action.ActionForm {
+    
+    private String login_id;
+    private String amount;
+
+    public String getLogin_id() {
+        return login_id;
+    }
+
+    public void setLogin_id(String login_id) {
+        this.login_id = login_id;
+    }
+
+    public String getAmount() {
+        return amount;
+    }
+
+    public void setAmount(String amount) {
+        this.amount = amount;
+    }
+    
+}

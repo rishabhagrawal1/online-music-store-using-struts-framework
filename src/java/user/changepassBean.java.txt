@@ -1,0 +1,52 @@
+/*
+ * changepassBean.java
+ *
+ * Created on 10 July, 2009, 12:21 AM
+ */
+
+package user;
+
+import javax.servlet.http.*;
+import org.apache.struts.action.*;
+/**
+ *
+ * @author rishabh
+ * @version
+ */
+
+public class changepassBean extends org.apache.struts.action.ActionForm {
+    
+    private String oldPass;
+    private String newPass;
+    private String confirmPass;
+    
+    
+    public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
+        ActionErrors errors = new ActionErrors();
+        return errors;
+    }
+
+    public String getOldPass() {
+        return oldPass;
+    }
+
+    public void setOldPass(String oldPass) {
+        this.oldPass = oldPass;
+    }
+
+    public String getNewPass() {
+        return newPass;
+    }
+
+    public void setNewPass(String newPass) {
+        this.newPass = newPass;
+    }
+
+    public String getConfirmPass() {
+        return confirmPass;
+    }
+
+    public void setConfirmPass(String confirmPass) {
+        this.confirmPass = confirmPass;
+    }
+}

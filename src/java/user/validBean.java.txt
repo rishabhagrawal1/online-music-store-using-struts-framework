@@ -1,0 +1,47 @@
+/*
+ * validBean.java
+ *
+ * Created on 9 July, 2009, 4:38 PM
+ */
+
+package user;
+
+import javax.servlet.http.*;
+import org.apache.struts.action.*;
+/**
+ *
+ * @author rishabh
+ * @version
+ */
+
+public class validBean extends org.apache.struts.action.ActionForm {
+    
+    private String id;
+    
+    private String password;
+    
+  
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+//  public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
+  //      ActionErrors errors = new ActionErrors();
+  //      return errors;
+//    }
+
+
+}
+

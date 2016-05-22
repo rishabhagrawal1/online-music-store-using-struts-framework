@@ -1,0 +1,54 @@
+/*
+ * CheckOrder.java
+ *
+ * Created on 10 July, 2009, 2:29 PM
+ */
+
+package admin;
+
+import javax.servlet.http.*;
+import javax.servlet.http.HttpServletResponse;
+import java.sql.*;
+import org.apache.struts.action.Action;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionForward;
+/**
+ *
+ * @author AKHIL
+ * @version
+ */
+
+public class CheckOrder extends Action {
+    
+  
+    public ActionForward execute(ActionMapping mapping, ActionForm  form,
+            HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
+        HttpSession session=request.getSession(false);
+       if(session.getAttribute("id")!=null)
+       {
+        checkBean bn=(checkBean)form;
+        if(bn.getChoice()=="checkOrder")
+        {
+           String query="select* from order_master";
+        ResultSet rs=ConnectionService.select(query);
+        
+        request.setAttribute("res",rs);
+        }
+         if(bn.getChoice()=="serveOrder")
+        {
+           String query="select* from order_master where status='pending'";
+        ResultSet rs=ConnectionService.select(query);
+        
+        request.setAttribute("res",rs);
+        }
+         return mapping.getInputForward();}
+        else
+        {
+        request.setAttribute("q","YOU HAVE LOGED OUT");
+        return mapping.findForward("error");
+        }
+        
+    }
+}

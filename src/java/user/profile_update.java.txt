@@ -1,0 +1,49 @@
+package user;
+/*
+ * profile_update.java
+ *
+ * Created on 10 July, 2009, 1:48 AM
+ */
+
+import javax.servlet.http.*;
+import java.sql.*;
+import org.apache.struts.action.*;
+import utility.ConnectionService;
+/**
+ *
+ * @author rishabh
+ * @version
+ */
+
+public class profile_update extends Action {
+    
+    public ActionForward execute(ActionMapping mapping, ActionForm  form,
+            HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
+ HttpSession session=request.getSession(false);
+        if(session.getAttribute("id")!=null)
+        {
+        String query="select * from member_detail where login_id='"+session.getAttribute("id")+"'";
+        ResultSet rs=ConnectionService.select(query);
+     
+      if(rs.next())
+     {
+         request.setAttribute("query",query);
+            return mapping.findForward("edit_profile");
+     }
+     else
+     {
+         request.setAttribute("q","your profile is empty first fill your profile");
+            return mapping.getInputForward();
+     }
+     
+        }
+        else
+        {
+            request.setAttribute("q","Please login to get this page");
+            return mapping.getInputForward();
+        }
+        
+        
+    }
+}

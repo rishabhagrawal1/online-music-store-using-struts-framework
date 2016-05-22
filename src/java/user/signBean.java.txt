@@ -1,0 +1,155 @@
+/*
+ * signBean.java
+ *
+ * Created on 9 July, 2009, 9:24 PM
+ */
+
+package user;
+
+import javax.servlet.http.*;
+import org.apache.struts.action.*;
+
+/**
+ *
+ * @author rishabh
+ * @version
+ */
+
+public class signBean extends org.apache.struts.action.ActionForm {
+    
+    private String login_id ;
+    private String fname ;
+    private String mname;
+    private String lname;
+    private String contact_basic;
+    private String contact_mobile;
+    private String email;
+    private String dob;
+    private String street;
+    private String city;
+    private String pincode;
+    private String state;
+    private String country;
+    private String occupation;
+    
+
+    
+    
+    
+    public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
+        ActionErrors errors = new ActionErrors();
+        return errors;
+    }
+
+    public String getLogin_id() {
+        return login_id;
+    }
+
+    public void setLogin_id(String login_id) {
+        this.login_id = login_id;
+    }
+
+    public String getFname() {
+        return fname;
+    }
+
+    public void setFname(String fname) {
+        this.fname = fname;
+    }
+
+    public String getMname() {
+        return mname;
+    }
+
+    public void setMname(String mname) {
+        this.mname = mname;
+    }
+
+    public String getLname() {
+        return lname;
+    }
+
+    public void setLname(String lname) {
+        this.lname = lname;
+    }
+
+    public String getContact_basic() {
+        return contact_basic;
+    }
+
+    public void setContact_basic(String contact_basic) {
+        this.contact_basic = contact_basic;
+    }
+
+    public String getContact_mobile() {
+        return contact_mobile;
+    }
+
+    public void setContact_mobile(String contact_mobile) {
+        this.contact_mobile = contact_mobile;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getDob() {
+        return dob;
+    }
+
+    public void setDob(String dob) {
+        this.dob = dob;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getPincode() {
+        return pincode;
+    }
+
+    public void setPincode(String pincode) {
+        this.pincode = pincode;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getOccupation() {
+        return occupation;
+    }
+
+    public void setOccupation(String occupation) {
+        this.occupation = occupation;
+    }
+}
